@@ -5,6 +5,7 @@ import { CalendarOutlined, PrinterOutlined, VideoCameraOutlined } from "@ant-des
 import { Card, Menu, Typography } from "antd"
 import Layout, { Content, Footer } from "antd/es/layout/layout"
 import Sider from "antd/es/layout/Sider"
+import axios from "axios";
 import Image from "next/image";
 import { createElement, useEffect, useState } from "react";
 import logo from '../../assests/pub-logo.png'
@@ -16,7 +17,8 @@ const Home = () => {
     user: 'Usuários',
     schedule: 'Agenda',
     urls: 'Urls',
-    reports: 'Relatórios'
+    reports: 'Relatórios',
+    dev: 'Dev'
   }
 
   const handleResize = (e: any) => {
@@ -69,7 +71,13 @@ const Home = () => {
               icon: PrinterOutlined,
               label: 'Relatórios',
               key: 'reports'
-            }].map(
+            },
+            {
+              icon: PrinterOutlined,
+              label: 'Dev',
+              key: 'dev'
+            }
+          ].map(
               (value, index) => ({
                 key: value.key,
                 icon: createElement(value.icon as any),

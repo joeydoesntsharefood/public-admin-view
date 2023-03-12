@@ -1,22 +1,22 @@
 export const locations = [
   {
     id: 1,
-    name: 'Skyroom',
+    name: 'BRAB - Skyroom',
     capacity: 30
   },
   {
     id: 2,
-    name: 'Espaço Mídia',
+    name: 'BRAB - Espaço Mídia',
     capacity: 10
   },
   {
     id: 3,
-    name: 'Rodada de negócios',
+    name: 'BRAB - Rodada de negócios',
     capacity: 20
   },
   {
     id: 4,
-    name: 'Oficinas do futuro',
+    name: 'BRAB - Oficinas do futuro',
     capacity: 25
   },
   {

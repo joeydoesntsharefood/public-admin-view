@@ -1,3 +1,4 @@
+import Dev from "@/source/views/Dev"
 import Reports from "@/source/views/Reports"
 import Schedule from "@/source/views/Schedule"
 import URLs from "@/source/views/URLs"
@@ -9,7 +10,8 @@ const SelectContent = ({ render }: { render: string }) => {
     user: User,
     schedule: Schedule,
     urls: URLs,
-    reports: Reports
+    reports: Reports,
+    dev: Dev
   }
 
   return createElement(contents[render])

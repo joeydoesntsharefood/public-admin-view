@@ -6,7 +6,7 @@ export const WrapperDashBoard = styled.div`
     margin: 0px;
   }
   .content {
-    height: 576px;
+    height: 960px;
   }
 `
 

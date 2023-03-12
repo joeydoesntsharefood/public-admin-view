@@ -1,11 +1,18 @@
 import Button from "@/source/components/Button"
+import { Spin } from "antd"
+import { WrapperFooterDrawer } from "./styles"
 
-const Footer = ({ onSubmit, onCancel }: { onSubmit: () => void, onCancel: () => void }) => {
+const Footer = ({ loading, onSubmit, onCancel, onConfirmText }: { onSubmit: () => void, onCancel: () => void, onConfirmText: string, loading: boolean }) => {
   return (
-    <>
-      <Button onClick={onSubmit}>Cadastrar</Button>
-      <Button onClick={onCancel}>Cancelar</Button>
-    </>    
+    <WrapperFooterDrawer>
+      { !loading &&
+        <>
+          <Button onClick={onSubmit}>{onConfirmText}</Button>
+          <Button onClick={onCancel}>Cancelar</Button>
+        </>
+      }
+      { loading && <Spin /> }
+    </WrapperFooterDrawer>    
   )
 }
 

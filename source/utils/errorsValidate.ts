@@ -1,0 +1,1 @@
+export type _errors = Array<{ message: string, key: string }>
