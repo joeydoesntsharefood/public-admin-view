@@ -50,4 +50,5 @@ export const WrapperBottom = styled.div`
   flex-direction: row;
   display: flex;
   justify-content: flex-start;
+  gap: 8px;
 `

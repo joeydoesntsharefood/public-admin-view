@@ -14,6 +14,6 @@ export interface IScheduling {
   invitesId: Array<Number>
 }
 
-const ScheduleRepository = new Repository<IScheduling>({ app, path: '/schedule' })
+const ScheduleRepository = new Repository<IScheduling>({ app, path: '/auth/schedule' })
 
 export default ScheduleRepository

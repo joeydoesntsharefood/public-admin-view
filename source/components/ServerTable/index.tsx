@@ -15,6 +15,7 @@ const ServerTable = ({ actions, scrollX, placeholderSearch, children, path, colu
     setLoadingData(true)
     try {
       const response = await serverTableConsumer(path, search)
+      console.log(response)
       setData(response?.data ?? [])
     } catch (err: any) {
       console.log(err)

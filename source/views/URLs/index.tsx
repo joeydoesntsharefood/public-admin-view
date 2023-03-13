@@ -2,16 +2,15 @@ import Button from "@/source/components/Button";
 import Footer from "@/source/components/FooterDrawer/footer";
 import FormPainel from "@/source/components/FormPainel";
 import PainelsRepository, { AddContentPainel } from "@/source/repository/PainelsRepository";
-import { Col, Drawer, Modal, Row, Select, Space } from "antd";
+import { Drawer, Modal, Select } from "antd";
 import Card from "antd/es/card/Card"
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
-import { WrapperColumn, WrapperColumnSelect, WrapperFilters, WrapperRow, WrapperRowFilters, WrapperSelect, WrapperUser } from "./styles"
+import { WrapperColumn, WrapperColumnSelect, WrapperFilters, WrapperRow, WrapperRowFilters, WrapperUser } from "./styles"
 import { IPainel } from "@/source/repository/PainelsRepository"
 import app from "@/source/config/app";
 import TablePainels from "./table";
 import InputText from "@/source/components/InputText";
-import Column from "antd/es/table/Column";
 import { _errors } from "@/source/utils/errorsValidate";
 
 const URLs = () => {
@@ -42,7 +41,7 @@ const URLs = () => {
     const getInUse = async () => {
       setLoadingOptions(true)
       try {
-        const response = await app.get('/painels-in-use')
+        const response = await app.get('/auth/painels/inuse')
         const mapValues = ({ id }: { id: number, name: string, inUse: number }) => ({ value: String(id), label: String(id) })
         const format = response.data.data.map(mapValues)
         setOptions(format)
@@ -59,9 +58,11 @@ const URLs = () => {
     setLoadingData(true)
     try {
       const responseContents = await PainelsRepository.list()
-      const responsePainels = await app.get('/painels-in-use')
+      const responsePainels = await app.get('/auth/painels/inuse')
       const valuesPainels = responsePainels.data.data
       const values = responseContents.data
+
+      console.log(valuesPainels)
       const array: Array<{ painelId: number, painelTitle: string, content: Array<{ title: string, orderExp: number, id?: number, uri: string }> }> = []
 
       if (!values) throw new Error('Não foi possível mapear seus dados.')

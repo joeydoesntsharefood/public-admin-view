@@ -1,4 +1,5 @@
 import Button from "@/source/components/Button";
+import CustomDatePicker from "@/source/components/CustomDatePicker";
 import DropDown from "@/source/components/DropDown";
 import Footer from "@/source/components/FooterDrawer/footer";
 import FormUser, { accessLevels, institutionList } from "@/source/components/FormUser";
@@ -9,6 +10,7 @@ import { WrapperForm } from "@/styles/globalStyles";
 import { Drawer, Modal, Tag } from "antd";
 import Card from "antd/es/card/Card"
 import { useState } from "react";
+import { IDate } from "../URLs/mockdata";
 import { WrapperUser } from "./styles"
 
 const columns = [
@@ -83,6 +85,14 @@ const columns = [
     title: 'Cadeia produtiva',
     dataIndex: 'chain',
     key: 'chain'
+  },
+  {
+    title: 'Data de cadastro',
+    data: 'verifiedAt',
+    key: 'verifiedAt',
+    render: (value: IDate) => {
+      return `${value.day}/${value.month}/${value.year} ${value.hour}:${value.minute}:${value.seconds}0`
+    }
   }
 ]
 
@@ -199,7 +209,7 @@ const User = () => {
         <Card>
           <ServerTable
             columns={columns}
-            path={'/user'}
+            path={'/auth/user'}
             refresh={refresh}
             placeholderSearch={'Buscar por nome ou e-mail'}
             scrollX={400}
@@ -260,6 +270,14 @@ const User = () => {
                 options={chainList}
                 value={filters.chain}
               />
+            </WrapperForm>
+            <WrapperForm>
+              <label>Data de Cadstros inicia:</label>
+              <CustomDatePicker name="startAt" onChange={handleFilters} value={filters?.startAt ?? ''} />
+            </WrapperForm>
+            <WrapperForm>
+              <label>Data de Cadstros finaliza:</label>
+              <CustomDatePicker name="endAt" onChange={handleFilters} value={filters?.endAt ?? ''} />
             </WrapperForm>
           </ServerTable>
         </Card>

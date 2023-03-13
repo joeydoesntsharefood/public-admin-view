@@ -18,7 +18,7 @@ const FormPainel = ({ form, values, onChange, errors }: { form: any, values?: IP
     const getPainelsName = async () => {
       setLoading(true)
       try {
-        const response = await app.get('/painels-names')
+        const response = await app.get('/auth/painels')
 
         const filterInUse = ({ inUse }: { id: number, name: string, inUse: number }) => !Boolean(inUse)
 

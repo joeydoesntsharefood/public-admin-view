@@ -8,6 +8,12 @@ export const WrapperDashBoard = styled.div`
   .content {
     height: 960px;
   }
+  .ant-layout-sider {
+    background: black;
+  }
+  .ant-menu {
+    background: transparent;
+  }
 `
 
 export const WrapperContent = styled.div``

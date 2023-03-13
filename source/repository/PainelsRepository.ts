@@ -18,11 +18,11 @@ interface IPainelDBA {
   title: string
 }  
 
-const PainelsRepository = new Repository<IPainel>({ app, path: '/painels' })
+const PainelsRepository = new Repository<IPainel>({ app, path: '/auth/content' })
 
 export const AddContentPainel = async (data: { contents: Array<IPainelDBA> }, id: string) => {
   try {
-    const response = await app.post(`/painel/content/${id}`, data)
+    const response = await app.post(`/auth/painel/content/${id}`, data)
     return response?.data
   } catch (err: any) {
     return err

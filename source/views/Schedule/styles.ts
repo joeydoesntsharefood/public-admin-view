@@ -17,4 +17,15 @@ export const WrapperFilters = styled.div`
   .custom-btn {
     width: 200px;
   }
+  
+`
+
+export const WrapperScheduleFilters = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  gap: 8px;
+  input[type="datetime-local"] {
+    margin-left: 0px;
+  }
 `

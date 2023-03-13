@@ -1,13 +1,16 @@
 import Button from "@/source/components/Button";
+import CustomDatePicker from "@/source/components/CustomDatePicker";
+import DropDown from "@/source/components/DropDown";
 import FormSchedule from "@/source/components/FormSchedule";
 import ServerTable from "@/source/components/ServerTable";
 import ScheduleRepository, { IScheduling } from "@/source/repository/ScheduleRepository";
+import { WrapperForm } from "@/styles/globalStyles";
 import { Drawer, Tag } from "antd";
 import Card from "antd/es/card/Card"
 import { useState } from "react";
 import Footer from "../../components/FooterDrawer/footer";
 import { IDate } from "./mockdata";
-import { WrapperUser } from "./styles"
+import { WrapperScheduleFilters, WrapperUser } from "./styles"
 
 const columns = [
   {
@@ -62,10 +65,13 @@ const Schedule = () => {
   const [values, setValues] = useState<IScheduling>()
   const [loading, setLoading] = useState<boolean>(false)
   const [refresh, setRefresh] = useState<number>(0)
+  const [filters, setFilters] = useState<any>({})
   
   const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
   const handleValues = (changeValues: any) => setValues({ ...values, ...changeValues })
+
+  const handleFilters = (changeValues: any) => setFilters({ ...filters, ...changeValues })
 
   const onSubmit = async () => {
     setLoading(true)
@@ -97,16 +103,40 @@ const Schedule = () => {
       <WrapperUser>
         <Card>
           <ServerTable
-            path='schedule'
+            actions={<Button onClick={handleShowDrawer}>Criar evento</Button>}
+            path={'/auth/schedule'}
             columns={columns}
             refresh={refresh}
           >
-            <Button
-              onClick={handleShowDrawer}
-            >
-              Criar evento
-            </Button>
-          </ServerTable>
+            <WrapperForm>
+              <label>Tipo de Evento: </label>
+              <DropDown
+                name="is"
+                onChange={handleFilters}
+                options={[ {label: 'Aberto', value: 'true'}, { label: 'Fechado', value: 'false' }, { label: 'Todos', value: '' } ]}
+                value={filters.isEventOpen}
+              />
+            </WrapperForm>
+            <WrapperForm>
+              <label>Local do evento: </label>
+              <DropDown
+                name="is"
+                onChange={handleFilters}
+                options={[ {label: 'Aberto', value: 'true'}, { label: 'Fechado', value: 'false' }, { label: 'Todos', value: '' } ]}
+                value={filters.isEventOpen}
+              />
+            </WrapperForm>
+            <WrapperScheduleFilters>
+              <WrapperForm>
+                <label>Inicia</label>
+                <CustomDatePicker name="startAt" onChange={handleFilters} value={filters?.startAt ?? ''} />
+              </WrapperForm>
+              <WrapperForm>
+                <label>Finaliza</label>
+                <CustomDatePicker name="endAt" onChange={handleFilters} value={filters?.endAt ?? ''} />
+              </WrapperForm>
+            </WrapperScheduleFilters>
+          </ServerTable> 
         </Card>
       </WrapperUser>
     </>

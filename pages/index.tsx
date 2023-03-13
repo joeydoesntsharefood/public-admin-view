@@ -1,30 +1,39 @@
 import Button from "@/source/components/Button"
 import InputText from "@/source/components/InputText"
-import app from "@/source/config/app"
+import { defaultUserValue, userState, tokenState } from "@/source/recoil"
 import AuthRepository from "@/source/repository/AuthRepository"
 import { WrapperCardLogin, WrapperLogo } from "@/styles/home"
 import { Modal } from "antd"
-import axios from "axios"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import { useRecoilState } from "recoil"
 import pubLogo from '../assests/pub-logo.png'
 
 const Home = () => {
   const [access, setAccess] = useState<{ email: string, password: string }>({ email: '', password: '' })
   const router = useRouter()
+  const [user, setUser] = useRecoilState(userState)
+  const [token, setToken] = useRecoilState(tokenState)
 
   const handleChangeAccess = (value: {}) => setAccess({ ...access, ...value })
+
+  useEffect(() => {
+    setUser(defaultUserValue)
+  }, [])
 
   const onSubmit = async () => {
     try {
       const response = await AuthRepository.signin(access)
       if (!response?.success) throw new Error(response?.message)
-      console.log(response?.userData)
       Modal.success({
         title: 'Conseguimos ',
         content: response?.message
       })
+      const { userData, token } = response?.data
+      setUser(userData)
+      setToken(token)
+      localStorage.setItem('token', token)
       router.push('/home')
     } catch (err: any) {
       Modal.error({
@@ -33,19 +42,6 @@ const Home = () => {
       })
     }
   }
-
-  useEffect(() => {
-    const test = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/')
-        console.log(response)
-      } catch (err: any) {
-        console.log(err)
-      }
-    }
-
-    test()
-  }, [])
 
   return (
     <WrapperCardLogin>

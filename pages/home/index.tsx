@@ -1,14 +1,14 @@
+import ControllUser from "@/source/components/ControllUser";
 import SelectContent from "@/source/components/SelectContent";
 import { WrapperDashBoard, WrapperLogoDashBoard, WrapperTitleDashBoard } from "@/styles/dashboard"
 import { UserOutlined } from "@ant-design/icons";
 import { CalendarOutlined, PrinterOutlined, VideoCameraOutlined } from "@ant-design/icons/lib/icons";
-import { Card, Menu, Typography } from "antd"
+import { Menu } from "antd"
 import Layout, { Content, Footer } from "antd/es/layout/layout"
 import Sider from "antd/es/layout/Sider"
-import axios from "axios";
 import Image from "next/image";
 import { createElement, useEffect, useState } from "react";
-import logo from '../../assests/pub-logo.png'
+import logoWhite from '../../assests/pub-logo-white.png'
 
 const Home = () => {
   const [sizeHeight, setSizeHeight] = useState<{ windowHeight: any }>({ windowHeight: window.innerHeight })
@@ -45,8 +45,9 @@ const Home = () => {
           }}
         >
           <WrapperLogoDashBoard>
-            <Image alt='pub-logo' src={logo} />
+            <Image alt='pub-logo' src={logoWhite} />
           </WrapperLogoDashBoard>
+          <ControllUser />
           <Menu
             onClick={(value) => setContentSelect(value.key)}
             theme="dark"

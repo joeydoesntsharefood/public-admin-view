@@ -16,7 +16,7 @@ export interface IUser {
   institution: string
 }
  
-const UserRepository = new Repository<IUser>({ app, path: '/user' })
+const UserRepository = new Repository<IUser>({ app, path: '/auth/user' })
 
 
 export default UserRepository
