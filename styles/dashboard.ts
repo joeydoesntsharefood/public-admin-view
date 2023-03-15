@@ -14,6 +14,13 @@ export const WrapperDashBoard = styled.div`
   .ant-menu {
     background: transparent;
   }
+  .ant-layout-header {
+    background: grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0px;
+  }
 `
 
 export const WrapperContent = styled.div``

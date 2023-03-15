@@ -58,11 +58,10 @@ const FormPainel = ({ form, values, onChange, errors }: { form: any, values?: IP
           </WrapperSelectId>
         </ErrorsRender>
       }
-      { showTitleInput &&
         <ErrorsRender errors={errors} name="painelName">
           <InputText placeholder="Título do painel" name="painelTitle" onChange={onChange} value={values?.painelTitle ?? ''} />
         </ErrorsRender>
-      }
+
       <UriInput form={form} values={values?.uri ?? ''} />
     </WrapperForm>
   )

@@ -8,12 +8,12 @@ const InputText = ({ name, onChange, value, placeholder }: { placeholder: string
         className="form__field"
         placeholder={placeholder}
         name={name}
-        id='name'
+        id={name}
         required
         onChange={event => onChange({ [name]: event.target.value })}
         value={value}
       />
-      <label htmlFor="name" className="form__label">{placeholder}</label>
+      <label htmlFor={name} className="form__label">{placeholder}</label>
     </WrapperInputText>
   )
 }

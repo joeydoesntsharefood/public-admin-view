@@ -2,9 +2,9 @@ import ControllUser from "@/source/components/ControllUser";
 import SelectContent from "@/source/components/SelectContent";
 import { WrapperDashBoard, WrapperLogoDashBoard, WrapperTitleDashBoard } from "@/styles/dashboard"
 import { UserOutlined } from "@ant-design/icons";
-import { CalendarOutlined, PrinterOutlined, VideoCameraOutlined } from "@ant-design/icons/lib/icons";
+import { CalendarOutlined, VideoCameraOutlined } from "@ant-design/icons/lib/icons";
 import { Menu } from "antd"
-import Layout, { Content, Footer } from "antd/es/layout/layout"
+import Layout, { Content, Footer, Header } from "antd/es/layout/layout"
 import Sider from "antd/es/layout/Sider"
 import Image from "next/image";
 import { createElement, useEffect, useState } from "react";
@@ -47,7 +47,7 @@ const Home = () => {
           <WrapperLogoDashBoard>
             <Image alt='pub-logo' src={logoWhite} />
           </WrapperLogoDashBoard>
-          <ControllUser />
+          
           <Menu
             onClick={(value) => setContentSelect(value.key)}
             theme="dark"
@@ -68,26 +68,31 @@ const Home = () => {
               label: 'Contéudo',
               key: 'urls'
             },
-            {
-              icon: PrinterOutlined,
-              label: 'Relatórios',
-              key: 'reports'
-            },
-            {
-              icon: PrinterOutlined,
-              label: 'Dev',
-              key: 'dev'
-            }
+            // {
+            //   icon: PrinterOutlined,
+            //   label: 'Relatórios',
+            //   key: 'reports'
+            // },
+            // {
+            //   icon: PrinterOutlined,
+            //   label: 'Dev',
+            //   key: 'dev'
+            // }
           ].map(
-              (value, index) => ({
-                key: value.key,
-                icon: createElement(value.icon as any),
-                label: value.label,
-              }),
+              (value, index) => {
+                return {
+                  key: value.key,
+                  icon: createElement(value.icon as any),
+                  label: value.label,
+                }
+              },
             )}
           />
         </Sider>
         <Layout>
+          <Header>
+            <ControllUser />
+          </Header>
           <Content className='content'>
             <WrapperTitleDashBoard>
               {titles[contentSelect]}
@@ -97,7 +102,6 @@ const Home = () => {
           <Footer>Footer</Footer>
         </Layout>
       </Layout>
-      
     </WrapperDashBoard>
   )
 }

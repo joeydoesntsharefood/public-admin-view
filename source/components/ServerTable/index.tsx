@@ -1,20 +1,35 @@
 import InputText from "@/source/components/InputText";
 import { Divider, Table } from "antd";
 import Card from "antd/es/card/Card"
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
 import serverTableConsumer from "./consumer";
 import { WrapperBottom, WrapperFilters, WrapperServerTable, WrapperTop } from "./styles"
 
-const ServerTable = ({ actions, scrollX, placeholderSearch, children, path, columns, refresh, expandable }: { children?: any, path: string, columns: Array<any>, refresh: number, expandable?: any, placeholderSearch?: string, scrollX?: any, actions: any }) => {
+interface Props {
+  filters?: {}
+  children?: any
+  path: string
+  columns: Array<any>
+  refresh: number
+  expandable?: any
+  placeholderSearch?: string
+  scrollX?: any
+  actions: any
+}
+
+const ServerTable = ({ filters, actions, scrollX, placeholderSearch, children, path, columns, refresh, expandable }: Props) => {
   const [search, setSearch] = useState<string>('')
   const [data, setData] = useState<Array<any>>([])
   const [loadingData, setLoadingData] = useState<boolean>(false)
 
-  const getData = async (search?: string) => {
+  const getData = async ({ search, query }: { search?: string, query?: string }) => {
     setLoadingData(true)
     try {
-      const response = await serverTableConsumer(path, search)
+      let response: any
+      if (query) response = await serverTableConsumer(`${path}?${query}`)
+      else response = await serverTableConsumer(path, search)
       console.log(response)
       setData(response?.data ?? [])
     } catch (err: any) {
@@ -22,11 +37,36 @@ const ServerTable = ({ actions, scrollX, placeholderSearch, children, path, colu
     }
     setLoadingData(false)
   }
+
+  useEffect(() => {
+    if (filters) {
+      let formatedFilters: Array<string> = []
+
+      Object.entries(filters).forEach(values => {
+        const [key, value] = values
+
+        const formatedValue = String(value)
+        
+        if (formatedValue.length === 0 ) return ''
+
+        if (['startAt', 'endAt'].includes(key)) {
+          if (formatedValue.length === 0) return ''
+          return formatedFilters.push(`${key}=${value}`)
+        }
+      
+        return formatedFilters.push(`${key}=${formatedValue}`)
+      })
+
+      const query = String(formatedFilters).replaceAll(',', '&')
+
+      getData({ query })
+    }
+  }, [filters])
   
   const searchData = async () => {
     try {
-      if (search.length === 0) getData()
-      else getData(search)
+      if (search.length === 0) getData({})
+      else getData({ search })
     } catch (err: any) {
       console.log(err)
     }
@@ -37,7 +77,7 @@ const ServerTable = ({ actions, scrollX, placeholderSearch, children, path, colu
   const handleSearch = (value: any) => setSearch(value.search)
 
   useEffect(() => {
-    getData()
+    getData({})
   }, [])
 
   return (

@@ -9,6 +9,7 @@ import { _errors } from "@/source/utils/errorsValidate";
 import { WrapperForm } from "@/styles/globalStyles";
 import { Drawer, Modal, Tag } from "antd";
 import Card from "antd/es/card/Card"
+import dayjs from "dayjs";
 import { useState } from "react";
 import { IDate } from "../URLs/mockdata";
 import { WrapperUser } from "./styles"
@@ -78,8 +79,8 @@ const columns = [
   },
   {
     title: 'Area de atuação',
-    dataIndex: 'ocupation',
-    key: 'ocupation'
+    dataIndex: 'occupation',
+    key: 'occupation'
   },
   {
     title: 'Cadeia produtiva',
@@ -90,18 +91,21 @@ const columns = [
     title: 'Data de cadastro',
     data: 'verifiedAt',
     key: 'verifiedAt',
-    render: (value: IDate) => {
-      return `${value.day}/${value.month}/${value.year} ${value.hour}:${value.minute}:${value.seconds}0`
-    }
+    // render: (value: string) => {
+    //   const [day, time] = value.split('T')
+    //   return `${day} ${time}`
+    // }
   }
 ]
 
-const filtersDefault: { firstAccess: string, accessLevel: string, institution: string, role: string, partOf: '' } = {
+const filtersDefault: { firstAccess: string, accessLevel: string, institution: string, role: string, partOf: string, occupation: string, chain: '' } = {
   firstAccess: '',
   accessLevel: '',
   institution: '',
   role: '',
-  partOf: ''
+  partOf: '',
+  occupation: '',
+  chain: ''
 }
 
 const occupationList = [
@@ -112,6 +116,7 @@ const occupationList = [
   {value: 'distribuicao', label: 'Distribuição'},
   {value: 'servicos', label: 'Servicos'},
   {value: 'outra', label: 'Outra'},
+  {value: '', label: 'Todas' }
 ]
 
 const chainList = [
@@ -125,7 +130,8 @@ const chainList = [
   {value: 'cafe', label: 'Cafe'  },
   {value: 'cacau', label: 'Cacau'  },
   {value: 'canaAcucar', label: 'Cana de Açúcar'  },
-  {value: 'outro', label: 'Outro'} 
+  {value: 'outro', label: 'Outro'},
+  {value: '', label: 'Todas' }
 ]
 
 const rolesList = [
@@ -214,6 +220,7 @@ const User = () => {
             placeholderSearch={'Buscar por nome ou e-mail'}
             scrollX={400}
             actions={<Button onClick={handleShowDrawer}>Adicionar pré cadastro</Button>}
+            filters={filters}
           >
             <WrapperForm>
               <label>Primeiro acesso: </label>
@@ -255,10 +262,10 @@ const User = () => {
             <WrapperForm>
               <label>Area de atuação: </label>
               <DropDown
-                name="ocupation"
+                name="occupation"
                 onChange={handleFilters}
                 options={occupationList}
-                value={filters.ocupation}
+                value={filters.occupation}
               />
             </WrapperForm>
 
@@ -272,11 +279,11 @@ const User = () => {
               />
             </WrapperForm>
             <WrapperForm>
-              <label>Data de Cadstros inicia:</label>
+              <label>Data de Cadastro inicial:</label>
               <CustomDatePicker name="startAt" onChange={handleFilters} value={filters?.startAt ?? ''} />
             </WrapperForm>
             <WrapperForm>
-              <label>Data de Cadstros finaliza:</label>
+              <label>Data de Cadastro final:</label>
               <CustomDatePicker name="endAt" onChange={handleFilters} value={filters?.endAt ?? ''} />
             </WrapperForm>
           </ServerTable>

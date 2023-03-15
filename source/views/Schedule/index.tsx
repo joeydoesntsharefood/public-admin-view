@@ -2,12 +2,15 @@ import Button from "@/source/components/Button";
 import CustomDatePicker from "@/source/components/CustomDatePicker";
 import DropDown from "@/source/components/DropDown";
 import FormSchedule from "@/source/components/FormSchedule";
+import { locations } from "@/source/components/FormSchedule/mockdata";
 import ServerTable from "@/source/components/ServerTable";
+import { userState } from "@/source/recoil";
 import ScheduleRepository, { IScheduling } from "@/source/repository/ScheduleRepository";
 import { WrapperForm } from "@/styles/globalStyles";
 import { Drawer, Tag } from "antd";
 import Card from "antd/es/card/Card"
 import { useState } from "react";
+import { useRecoilState } from "recoil";
 import Footer from "../../components/FooterDrawer/footer";
 import { IDate } from "./mockdata";
 import { WrapperScheduleFilters, WrapperUser } from "./styles"
@@ -47,7 +50,7 @@ const columns = [
     dataIndex: 'startAt',
     key: 'startAt',
     render: (value: IDate) => {
-      return `${value.day}/${value.month}/${value.year} ${value.hour}:${value.minute}:${value.seconds}0`
+      return `${value.day}/${value.month}/${value.year} ${value.hour}:${value.minute}`
     }
   },
   {
@@ -55,7 +58,7 @@ const columns = [
     dataIndex: 'endAt',
     key: 'endAt',
     render: (value: IDate) => {
-      return `${value.day}/${value.month}/${value.year} ${value.hour}:${value.minute}:${value.seconds}0`
+      return `${value.day}/${value.month}/${value.year} ${value.hour}:${value.minute}`
     }
   }
 ];
@@ -66,6 +69,7 @@ const Schedule = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [refresh, setRefresh] = useState<number>(0)
   const [filters, setFilters] = useState<any>({})
+  const [user, setUser] = useRecoilState(userState)
   
   const handleShowDrawer = () => setShowDrawer(!showDrawer)
 
@@ -77,7 +81,7 @@ const Schedule = () => {
     setLoading(true)
     try {
       if (!values) throw new Error('sem valores')
-      const formatValues: IScheduling = { ...values, ownerId: 1, chain: 'teste', placeId: 1, isEventOpen: Boolean(values.isEventOpen) }
+      const formatValues: IScheduling = { ...values, ownerId: user.id, placeId: (locations.find(value => value.name === values.placeName))?.id, isEventOpen: Boolean(values.isEventOpen) }
       await ScheduleRepository.create(formatValues)
 
       setValues(undefined)
@@ -107,11 +111,12 @@ const Schedule = () => {
             path={'/auth/schedule'}
             columns={columns}
             refresh={refresh}
+            filters={filters}
           >
             <WrapperForm>
               <label>Tipo de Evento: </label>
               <DropDown
-                name="is"
+                name="isEventOpen"
                 onChange={handleFilters}
                 options={[ {label: 'Aberto', value: 'true'}, { label: 'Fechado', value: 'false' }, { label: 'Todos', value: '' } ]}
                 value={filters.isEventOpen}
@@ -120,10 +125,13 @@ const Schedule = () => {
             <WrapperForm>
               <label>Local do evento: </label>
               <DropDown
-                name="is"
+                name="placeId"
                 onChange={handleFilters}
-                options={[ {label: 'Aberto', value: 'true'}, { label: 'Fechado', value: 'false' }, { label: 'Todos', value: '' } ]}
-                value={filters.isEventOpen}
+                options={[ 
+                  ...locations.map((value: { name: string, capacity: number, id: number }) => ({ label:  `${value.name} - Capacidade: ${value.capacity}`, value: String(value.id) })),
+                  { label: 'Todos', value: '' }
+                ]}
+                value={filters.placeId}
               />
             </WrapperForm>
             <WrapperScheduleFilters>

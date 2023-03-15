@@ -7,10 +7,11 @@ import InputText from "../InputText"
 import { WrapperDropDownForm, WrapperForm, WrapperInstitution } from "./styles"
 
 export const accessLevels: Array<{ label: string, value: string }> = [
-  { label: 'Administrador BRAB', value: 'adminBrab' },
-  { label: 'Administrador Institucional', value: 'adminInstitucional' },
-  { label: 'Administrador Patrocinador', value: 'adminPatrocinador' },
-  { label: 'Usuário Comum', value: 'userDefault' }
+  { label: 'Administrador BRAB', value: '0' },
+  { label: 'Administrador Institucional', value: '1' },
+  { label: 'Administrador Patrocinador', value: '2' },
+  { label: 'Administrador Associação', value: '3' },
+  { label: 'Usuário Comum', value: '4' }
 ]
 
 export const institutionList: Array<{label: string, value: string}> = [

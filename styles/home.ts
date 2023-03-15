@@ -4,8 +4,7 @@ export const WrapperCardLogin = styled.div`
   background: #fbfbfb;
   border-radius: 8px;
   box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
-  height: 960px;
-  margin: 6rem auto 8.1rem auto;
+  margin: 8.5rem auto 8.1rem auto;
   width: 329px;
   padding: 20px;
 `

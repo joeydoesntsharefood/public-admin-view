@@ -6,11 +6,13 @@ export const WrapperControlUser = styled.div`
   gap: 5px;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  padding: 0px 10px 0px 10px;
 
   button {
     background: transparent;
     padding: 5px;
-    border: grey 1px solid;
+    border: white 1px solid;
     border-radius: 5px;
     :hover{
       border: white 1px solid;
@@ -23,7 +25,7 @@ export const WrapperControlUser = styled.div`
 
   span {
     font-size: 25px;
-    color: grey;
+    color: white;
     margin: 5px;
   }
   label {

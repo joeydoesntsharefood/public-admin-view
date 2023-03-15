@@ -7,7 +7,7 @@ export interface IScheduling {
   hostId: number
   eventName: string
   chain: string
-  placeId: number
+  placeId?: number
   placeName: string
   startAt: string
   endAt: string

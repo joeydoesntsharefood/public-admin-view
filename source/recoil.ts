@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 
 export interface IUser {
+  id: number
   accessLevel: string
 	name: string
 	phone: string
@@ -29,7 +30,8 @@ export const defaultUserValue: IUser = {
   partOf: false,
   phone: '',
   role: '',
-  rpmId: 0
+  rpmId: 0,
+  id: 0
 }    
 
 export const userState = atom<IUser>({

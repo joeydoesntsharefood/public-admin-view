@@ -6,7 +6,7 @@ import CustomDatePicker from "../CustomDatePicker"
 import DropDown from "../DropDown"
 import InputText from "../InputText"
 import { locations } from "./mockdata"
-import { WrapperPickers, WrapperSelect } from "./styles"
+import { WrapperPickers, WrapperSelect, WrapperSwitch } from "./styles"
 
 const FormSchedule = ({ values, onChange }: { values: any, onChange: any }) => {
   const [showInvitesArea, setShowInvitesArea] = useState<boolean>(false)
@@ -28,15 +28,18 @@ const FormSchedule = ({ values, onChange }: { values: any, onChange: any }) => {
         <CustomDatePicker label="Inicia"  name="startAt" onChange={onChange} value={values?.startAt ?? ''} />
         <CustomDatePicker label="Finaliza"  name="endAt" onChange={onChange} value={values?.endAt ?? ''} />
       </WrapperPickers>
-      <Switch
-        checkedChildren={<>Evento aberto</>}
-        unCheckedChildren={<>Evento fechado</>}
-        onChange={value => {
-          setShowInvitesArea(value)
-          onChange({ isEventOpen: value})
-        }}
-        checked={values?.isEventOpen}
-      />
+      <InputText name="hostId" onChange={onChange} placeholder='E-mail do host' value={values?.hostId ?? ''} />
+      <WrapperSwitch>
+        <Switch
+          checkedChildren={<>Evento aberto</>}
+          unCheckedChildren={<>Evento fechado</>}
+          onChange={value => {
+            setShowInvitesArea(value)
+            onChange({ isEventOpen: value})
+          }}
+          checked={values?.isEventOpen}
+        />
+      </WrapperSwitch>
       {
         !showInvitesArea && 
           <TextArea
@@ -46,7 +49,6 @@ const FormSchedule = ({ values, onChange }: { values: any, onChange: any }) => {
             onChange={event => onChange({ invitesId: event.target.value.replace(';', ',') })}
           />
       }
-      <InputText name="hostId" onChange={onChange} placeholder='E-mail do host' value={values?.hostId ?? ''} />
     </WrapperForm>
   )
 }

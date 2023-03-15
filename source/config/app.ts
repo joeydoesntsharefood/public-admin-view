@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:7000'
+const baseURL = 'http://localhost:5559'
 
 // 'https://agriland11971.c42.integrator.host/services'
 
