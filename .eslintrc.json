@@ -1,3 +1,19 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "import/no-anonymous-default-export": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "_toConsumableArray",
+            "message": "Please use `Array.from` instead."
+          }
+        ]
+      }
+  }
 }
