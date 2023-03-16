@@ -1,3 +1,5 @@
+export {}
+
 import ControllUser from "@/source/components/ControllUser";
 import SelectContent from "@/source/components/SelectContent";
 import { WrapperDashBoard, WrapperLogoDashBoard, WrapperTitleDashBoard } from "@/styles/dashboard"

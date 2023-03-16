@@ -1,6 +1,7 @@
 {
   "presets": ["next/babel"],
   "plugins": [
-    "@babel/plugin-transform-runtime"
+    ["import", { "libraryName": "antd", "style": true }],
+    ["@babel/plugin-transform-runtime", { "regenerator": true }]
   ]
 }
