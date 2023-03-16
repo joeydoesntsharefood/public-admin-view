@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-// const baseURL = 'http://localhost:5559'
+const baseURL = 'http://localhost:5562'
 
-const baseURL = 'https://agriland11971.c42.integrator.host/services'
+// const baseURL = 'https://agriland11971.c42.integrator.host/services'
 
 const app = axios.create({ baseURL })
 

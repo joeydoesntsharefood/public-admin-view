@@ -17,6 +17,11 @@ export interface IUser {
 	occupation: string
 }
 
+export interface IEmailCode {
+  email: string
+  code: string
+}
+
 export const defaultUserValue: IUser = {
   accessLevel: '',
   areaOfIntrest: '',
@@ -32,7 +37,17 @@ export const defaultUserValue: IUser = {
   role: '',
   rpmId: 0,
   id: 0
-}    
+} 
+
+export const defaultEmailCode: IEmailCode = {
+  code: '',
+  email: ''
+}
+
+export const emailCodeState = atom<IEmailCode>({
+  key: 'emailCode',
+  default: defaultEmailCode
+})
 
 export const userState = atom<IUser>({
   key: 'userState',

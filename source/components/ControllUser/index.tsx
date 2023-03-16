@@ -6,10 +6,11 @@ import { useRecoilState } from "recoil"
 import { WrapperControlUser } from "./styles"
 
 const ControllUser = () => {
-  const [user] = useRecoilState(userState)
+  const [user, setUser] = useRecoilState(userState)
   const router = useRouter()
 
   const logout = () => {
+    setUser(defaultUserValue)
     router.push('/')
   }
 
